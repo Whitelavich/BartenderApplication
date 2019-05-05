@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Bartender</string>
+    <string name="vodka">Vodka</string>
+    <string name="gin">Gin</string>
+    <string name="tequila">Tequila</string>
+    <string name="brandy">Brandy</string>
+    <string name="whiskey">Whiskey</string>
+    <string name="rum">Rum</string>
+    <string name="bourbon">Bourbon</string>
+    <string name="random">Random</string>
+    <string name="loading_please_wait">Loading Please Wait</string>
+</resources>

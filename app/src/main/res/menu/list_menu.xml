@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+
+    >
+
+
+    <item
+        android:id="@+id/vodka"
+        android:onClick="list"
+        android:title="@string/vodka" />
+    <item
+        android:id="@+id/gin"
+        android:onClick="list"
+        android:title="@string/gin" />
+    <item
+        android:id="@+id/tequila"
+        android:title="@string/tequila"
+        android:onClick="list" />
+    <item
+        android:id="@+id/brandy"
+        android:onClick="list"
+        android:title="@string/brandy" />
+    <item
+        android:id="@+id/whiskey"
+        android:onClick="list"
+        android:title="@string/whiskey" />
+    <item
+        android:id="@+id/Rum"
+        android:onClick="list"
+        android:title="@string/rum" />
+    <item
+        android:id="@+id/bourbon"
+        android:onClick="list"
+        android:title="@string/bourbon" />
+    <item
+        android:id="@+id/random"
+        android:onClick="listRandom"
+        android:title="@string/random" />
+</menu>
