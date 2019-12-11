@@ -2,6 +2,10 @@ package com.example.bartender;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,9 +13,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ActionProvider;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.SubMenu;
+import android.view.View;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -25,13 +33,15 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.LinkedList;
+import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
     static LinkedList<Drawable> images = new LinkedList<>();
-    LinkedList<String> names = new LinkedList<>();
+    static LinkedList<String> names = new LinkedList<>();
 
     static DrinkListAdapter mAdapter = null;
+    MenuItem current = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +49,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Intent intent = new Intent(MainActivity.this, DrinkInformation.class);
+
         for (int a = 0; a < 50; a++) {
             new DbHandler().execute("https://www.thecocktaildb.com/api/json/v1/1/random.php");
 
         }
-
 
         RecyclerView recyclerView = findViewById(R.id.recycler);
         mAdapter = new DrinkListAdapter(this, names, images);
@@ -62,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void list(MenuItem item) {
+        this.current = item;
         names.clear();
         images.clear();
         new DbHandler().execute("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=" + item.getTitle());
@@ -69,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void listRandom(MenuItem item) {
+
         names.clear();
         images.clear();
         for (int a = 0; a < 50; a++) {
@@ -78,6 +90,275 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void setCurrent(MenuItem item) {
+        if (item != null) {
+            this.current = item;
+        } else {
+            MenuItem random = new MenuItem() {
+                @Override
+                public int getItemId() {
+                    return 0;
+                }
+
+                @Override
+                public int getGroupId() {
+                    return 0;
+                }
+
+                @Override
+                public int getOrder() {
+                    return 0;
+                }
+
+                @Override
+                public MenuItem setTitle(CharSequence charSequence) {
+                    return null;
+                }
+
+                @Override
+                public MenuItem setTitle(int i) {
+                    return null;
+                }
+
+                @Override
+                public CharSequence getTitle() {
+                    return null;
+                }
+
+                @Override
+                public MenuItem setTitleCondensed(CharSequence charSequence) {
+                    return null;
+                }
+
+                @Override
+                public CharSequence getTitleCondensed() {
+                    return null;
+                }
+
+                @Override
+                public MenuItem setIcon(Drawable drawable) {
+                    return null;
+                }
+
+                @Override
+                public MenuItem setIcon(int i) {
+                    return null;
+                }
+
+                @Override
+                public Drawable getIcon() {
+                    return null;
+                }
+
+                @Override
+                public MenuItem setIntent(Intent intent) {
+                    return null;
+                }
+
+                @Override
+                public Intent getIntent() {
+                    return null;
+                }
+
+                @Override
+                public MenuItem setShortcut(char c, char c1) {
+                    return null;
+                }
+
+                @Override
+                public MenuItem setNumericShortcut(char c) {
+                    return null;
+                }
+
+                @Override
+                public char getNumericShortcut() {
+                    return 0;
+                }
+
+                @Override
+                public MenuItem setAlphabeticShortcut(char c) {
+                    return null;
+                }
+
+                @Override
+                public char getAlphabeticShortcut() {
+                    return 0;
+                }
+
+                @Override
+                public MenuItem setCheckable(boolean b) {
+                    return null;
+                }
+
+                @Override
+                public boolean isCheckable() {
+                    return false;
+                }
+
+                @Override
+                public MenuItem setChecked(boolean b) {
+                    return null;
+                }
+
+                @Override
+                public boolean isChecked() {
+                    return false;
+                }
+
+                @Override
+                public MenuItem setVisible(boolean b) {
+                    return null;
+                }
+
+                @Override
+                public boolean isVisible() {
+                    return false;
+                }
+
+                @Override
+                public MenuItem setEnabled(boolean b) {
+                    return null;
+                }
+
+                @Override
+                public boolean isEnabled() {
+                    return false;
+                }
+
+                @Override
+                public boolean hasSubMenu() {
+                    return false;
+                }
+
+                @Override
+                public SubMenu getSubMenu() {
+                    return null;
+                }
+
+                @Override
+                public MenuItem setOnMenuItemClickListener(OnMenuItemClickListener onMenuItemClickListener) {
+                    return null;
+                }
+
+                @Override
+                public ContextMenu.ContextMenuInfo getMenuInfo() {
+                    return null;
+                }
+
+                @Override
+                public void setShowAsAction(int i) {
+
+                }
+
+                @Override
+                public MenuItem setShowAsActionFlags(int i) {
+                    return null;
+                }
+
+                @Override
+                public MenuItem setActionView(View view) {
+                    return null;
+                }
+
+                @Override
+                public MenuItem setActionView(int i) {
+                    return null;
+                }
+
+                @Override
+                public View getActionView() {
+                    return null;
+                }
+
+                @Override
+                public MenuItem setActionProvider(ActionProvider actionProvider) {
+                    return null;
+                }
+
+                @Override
+                public ActionProvider getActionProvider() {
+                    return null;
+                }
+
+                @Override
+                public boolean expandActionView() {
+                    return false;
+                }
+
+                @Override
+                public boolean collapseActionView() {
+                    return false;
+                }
+
+                @Override
+                public boolean isActionViewExpanded() {
+                    return false;
+                }
+
+                @Override
+                public MenuItem setOnActionExpandListener(OnActionExpandListener onActionExpandListener) {
+                    return null;
+                }
+            };
+            random.setTitle("Random");
+            this.current = random;
+        }
+    }
+
+    public void refresh(View view) {
+        if (this.current != null) {
+            if (this.current.getTitle() == "Random") {
+                this.listRandom(this.current);
+            } else {
+                this.list(this.current);
+            }
+        } else {
+            this.listRandom(null);
+        }
+
+
+    }
+
+    static class DrawableFromUrl extends AsyncTask<String, Void, Drawable> {
+
+        Drawable d;
+        String name;
+
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected Drawable doInBackground(String... url) {
+            try {
+                name = url[1];
+                d = Drawable.createFromStream(
+                        ((InputStream) new URL(url[0]).getContent()), "TheCocktailDB");
+
+                Bitmap x;
+                HttpURLConnection connection = (HttpURLConnection) new URL(url[0]).openConnection();
+                connection.connect();
+                InputStream input = connection.getInputStream();
+
+                x = BitmapFactory.decodeStream(input);
+                return new BitmapDrawable(Resources.getSystem(), x);
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return d;
+        }
+
+        protected void onPostExecute(Drawable response) {
+
+            images.add(response);
+            names.add(name);
+            mAdapter.notifyDataSetChanged();
+            Log.d("#####", "onPostExecute: gotty img");
+        }
+    }
 
     class DbHandler extends AsyncTask<String, Void, String> {
 
@@ -125,19 +406,18 @@ public class MainActivity extends AppCompatActivity {
             try {
                 jsonObj = new JSONObject(response);
                 drinks = jsonObj.getJSONArray("drinks");
+
                 for (int i = 0; i < drinks.length(); i++) {
                     JSONObject c = drinks.getJSONObject(i);
-                    Drawable d = null;
 
-                    names.add(c.getString("strDrink"));
-                    new DrawableFromUrl().execute(c.getString("strDrinkThumb"));
-                    Log.d("#####", c.get("strDrink") + " " + c.getString("strDrinkThumb"));
+
+                    new DrawableFromUrl().execute(c.getString("strDrinkThumb"), c.getString("strDrink"));
+                    Log.d("#####", c.toString());
 
 
                     c = null;
 
                 }
-                mAdapter.notifyDataSetChanged();
 
 
             } catch (JSONException e) {
@@ -147,33 +427,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-    }
-
-    static class DrawableFromUrl extends AsyncTask<String, Void, Drawable> {
-
-        Drawable d;
-
-        protected void onPreExecute() {
-
-        }
-
-        @Override
-        protected Drawable doInBackground(String... url) {
-            try {
-                d = Drawable.createFromStream(
-                        ((InputStream) new URL(url[0]).getContent()), "TheCocktailDB");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return d;
-        }
-
-        protected void onPostExecute(Drawable response) {
-            images.add(response);
-            mAdapter.notifyDataSetChanged();
-            Log.d("DOGGO", "onPostExecute: gotty img");
-        }
     }
 
 }
